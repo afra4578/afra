@@ -1,0 +1,115 @@
+[21/10, 10:48 pm] Aframariya: #include <stdio.h>
+#define MAX 5
+
+int stack[MAX];
+int top = -1;
+
+void push()
+{
+    int item;
+
+    if (top == MAX - 1)
+    {
+        printf("Stack Overflow\n");
+    }
+    else
+    {
+        printf("Enter the element: ");
+        scanf("%d", &item);
+
+        top = top + 1;
+        stack[top] = item;
+
+        printf("Element inserted\n");
+    }
+}
+
+void pop()
+{
+    if (top == -1)
+    {
+        printf("Stack Underflow\n");
+    }
+    else
+    {
+        printf("Deleted element = %d\n", stack[top]);
+        top = top - 1;
+    }
+}
+
+void display()
+{
+    int i;
+
+    if (top == -1)
+    {
+        printf("Stack is Empty\n");
+    }
+    else
+    {
+        printf("Stack elements are:\n");
+
+        for (i = top; i >= 0; i--)
+        {
+            printf("%d\n", stack[i]);
+        }
+    }
+}
+
+int main()
+{
+    int choice;
+
+    do
+    {
+        printf("\n1. PUSH");
+        printf("\n2. POP");
+        printf("\n3. DISPLAY");
+        printf("\n4. EXIT");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                push();
+                break;
+
+            case 2:
+                pop();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                printf("Exiting...\n");
+                break;
+
+            default:
+                printf("Invalid choice\n");
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
+[21/10, 10:51 pm] Aframariya: Algorithm: STACK
+1. START.
+2. Declare an array stack[MAX] and set top = -1.
+3. Display the menu: PUSH, POP, DISPLAY and EXIT.
+4. Read the user's choice.
+5. If the choice is PUSH:
+   - If top == MAX - 1, display Stack Overflow.
+   - Otherwise, read an element, increment top, and insert the element into stack[top].
+6. If the choice is POP:
+   - If top == -1, display Stack Underflow.
+   - Otherwise, display stack[top] and decrement top.
+7. If the choice is DISPLAY:
+   - If top == -1, display Stack is Empty.
+   - Otherwise, print the elements from top down to 0.
+8. If the choice is EXIT, stop.
+9. Repeat the menu until EXIT is selected.
+10. STOP.
+S

@@ -1,0 +1,37 @@
+## Algorithm: Find Maximum and Minimum Elements in a Doubly Linked List
+
+main()
+
+1. START
+2. Declare `head = NULL`, `ptr`, `newnode`
+3. Declare `n, i, max, min, val`
+4. Read `n`
+5. SET `i = 0`
+6. WHILE `i < n`
+   1. Allocate memory for `newnode`
+   2. Read `val`
+   3. SET `newnode->data = val`
+   4. SET `newnode->next = NULL`
+   5. IF `head == NULL`
+      1. SET `newnode->prev = NULL`
+   6. ELSE
+      1. SET `ptr = head`
+      2. WHILE `ptr->next != NULL`
+         1. SET `ptr = ptr->next`
+      3. SET `ptr->next = newnode`
+      4. SET `newnode->prev = ptr`
+   7. SET `i = i + 1`
+7. SET `ptr = head`
+8. SET `max = ptr->data`
+9. SET `min = ptr->data`
+10. WHILE `ptr != NULL`
+    1. IF `ptr->data > max`
+       - SET `max = ptr->data`
+    2. IF `ptr->data < min`
+       - SET `min = ptr->data`
+    3. SET `ptr = ptr->next`
+11. Display `max` as Maximum value
+12. Display `min` as Minimum value
+13. STOP
+
+Note: This algorithm assumes `n` is greater than 0 because the program accesses `ptr->data` after creating the list.

@@ -1,0 +1,1932 @@
+None selected 
+
+Skip to content
+Using Muthoot Institute Of Technology and Science Mail with screen readers
+in:sent 
+Enable desktop notifications for Muthoot Institute Of Technology and Science Mail.
+   OK  No thanks
+
+1 of 39
+(no subject)
+Inbox
+
+AFRA MARIYA V P <26mca34@mgits.ac.in>
+1:02 PM (1 hour ago)
+to me
+
+
+Failed
+Failed
+Failed
+Give me the algorithm and code for these two question.
+Reference the note book for algorithm and format
+Data Structures Lab – Set 5
+I identified the two questions from your lab sheet:
+
+Doubly Linked List: Write a C program to create a doubly linked list containing integer elements and identify the maximum and minimum values.
+
+Binary Search Tree: Write a C program to construct a Binary Search Tree (BST), count the number of leaf nodes and non-leaf nodes, and display both counts.
+
+I'll follow the same format as your notebook: numbered algorithm steps, structure declaration, main() function, and simple pointer-based logic. I'll avoid unnecessary separate functions so the programs are easier to write in your lab exam.
+
+Question 1 – Doubly Linked List (Maximum and Minimum)
+Algorithm
+Start.
+
+Declare a structure Node containing:
+
+Integer variable data.
+
+Pointer prev to the previous node.
+
+Pointer next to the next node.
+
+Declare head and ptr pointers and initialize head = NULL.
+
+Read the number of nodes n.
+
+Repeat the following steps n times:
+
+Allocate memory for a new node.
+
+Read the integer value into the new node.
+
+Assign NULL to its next pointer.
+
+If head == NULL:
+
+Assign the new node to head.
+
+Set its prev pointer to NULL.
+
+Otherwise:
+
+Traverse to the last node.
+
+Link the last node's next to the new node.
+
+Set the new node's prev to the last node.
+
+Initialize max and min with the first node's data.
+
+Set ptr = head.
+
+Traverse the linked list until ptr == NULL:
+
+If ptr->data > max, update max.
+
+If ptr->data < min, update min.
+
+Move ptr to the next node.
+
+Display the maximum and minimum values.
+
+Stop.
+
+C Program
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+
+int main() {
+    struct Node *head = NULL;
+    struct Node *ptr, *newnode;
+
+    int n, i, max, min, val;
+
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        newnode = (struct Node*)malloc(sizeof(struct Node));
+
+        printf("Enter value: ");
+        scanf("%d", &val);
+
+        newnode->data = val;
+        newnode->next = NULL;
+
+        if (head == NULL) {
+            newnode->prev = NULL;
+            head = newnode;
+        }
+        else {
+            ptr = head;
+
+            while (ptr->next != NULL) {
+                ptr = ptr->next;
+            }
+
+            ptr->next = newnode;
+            newnode->prev = ptr;
+        }
+    }
+
+    ptr = head;
+
+    max = ptr->data;
+    min = ptr->data;
+
+    while (ptr != NULL) {
+
+        if (ptr->data > max) {
+            max = ptr->data;
+        }
+
+        if (ptr->data < min) {
+            min = ptr->data;
+        }
+
+        ptr = ptr->next;
+    }
+
+    printf("\nMaximum value = %d", max);
+    printf("\nMinimum value = %d", min);
+
+    return 0;
+}
+
+Example Output
+Enter the number of nodes: 5
+Enter value: 20
+Enter value: 10
+Enter value: 50
+Enter value: 5
+Enter value: 30
+
+Maximum value = 50
+Minimum value = 5
+Important logic to remember:
+
+prev points to the previous node.
+
+next points to the next node.
+
+ptr = ptr->next moves forward through the list.
+
+Initialize max and min with the first node instead of zero, because the list may contain negative numbers.
+
+Question 2 – Binary Search Tree (Count Leaf and Non-Leaf Nodes)
+Algorithm
+Start.
+
+Declare a structure Node containing:
+
+Integer variable data.
+
+Pointer left to the left child.
+
+Pointer right to the right child.
+
+Initialize root = NULL.
+
+Read the number of nodes n.
+
+Repeat the following steps n times:
+
+Allocate memory for a new node.
+
+Read the integer value.
+
+Assign NULL to its left and right pointers.
+
+If root == NULL, assign the new node to root.
+
+Otherwise:
+
+Set ptr = root.
+
+Compare the new value with ptr->data.
+
+If the value is smaller, move to the left child.
+
+If the value is greater, move to the right child.
+
+Continue until an empty position is found.
+
+Insert the new node at that position.
+
+Initialize leaf = 0 and nonleaf = 0.
+
+Insert the root node into a queue.
+
+Repeat while the queue is not empty:
+
+Remove a node from the queue.
+
+If both left and right children are NULL, increment leaf.
+
+Otherwise, increment nonleaf.
+
+If the left child exists, insert it into the queue.
+
+If the right child exists, insert it into the queue.
+
+Display the number of leaf nodes and non-leaf nodes.
+
+Stop.
+
+C Program
+This program uses a queue to traverse the BST level by level. It does not require separate insertion or counting functions.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *left;
+    struct Node *right;
+};
+
+int main() {
+    struct Node *root = NULL;
+    struct Node *ptr, *newnode;
+
+    struct Node *queue[100];
+
+    int n, i, val;
+    int front = 0, rear = 0;
+    int leaf = 0, nonleaf = 0;
+
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+
+        newnode = (struct Node*)malloc(sizeof(struct Node));
+
+        printf("Enter value: ");
+        scanf("%d", &val);
+
+        newnode->data = val;
+        newnode->left = NULL;
+        newnode->right = NULL;
+
+        if (root == NULL) {
+            root = newnode;
+        }
+        else {
+            ptr = root;
+
+            while (1) {
+
+                if (val < ptr->data) {
+
+                    if (ptr->left == NULL) {
+                        ptr->left = newnode;
+                        break;
+                    }
+                    else {
+                        ptr = ptr->left;
+                    }
+                }
+
+                else if (val > ptr->data) {
+
+                    if (ptr->right == NULL) {
+                        ptr->right = newnode;
+                        break;
+                    }
+                    else {
+                        ptr = ptr->right;
+                    }
+                }
+
+                else {
+                    printf("Duplicate value ignored.\n");
+                    free(newnode);
+                    break;
+                }
+            }
+        }
+    }
+
+    if (root != NULL) {
+
+        queue[rear++] = root;
+
+        while (front < rear) {
+
+            ptr = queue[front++];
+
+            if (ptr->left == NULL &&
+                ptr->right == NULL) {
+
+                leaf++;
+            }
+            else {
+                nonleaf++;
+            }
+
+            if (ptr->left != NULL) {
+                queue[rear++] = ptr->left;
+            }
+
+            if (ptr->right != NULL) {
+                queue[rear++] = ptr->right;
+            }
+        }
+    }
+
+    printf("\nNumber of leaf nodes = %d", leaf);
+    printf("\nNumber of non-leaf nodes = %d", nonleaf);
+
+    return 0;
+}
+
+Example Output
+Enter the number of nodes: 7
+Enter value: 50
+Enter value: 30
+Enter value: 70
+Enter value: 20
+Enter value: 40
+Enter value: 60
+Enter value: 80
+
+Number of leaf nodes = 4
+Number of non-leaf nodes = 3
+Understanding the BST
+The above input creates this tree:
+
+Binary Search Tree
+
+Leaf nodes: 20, 40, 60, 80
+
+Leaf nodes = 4
+
+Non-leaf nodes: 50, 30, 70 = 3
+
+Important logic to remember:
+
+left stores values smaller than the parent.
+
+right stores values greater than the parent.
+
+A leaf node has no children (left == NULL && right == NULL).
+
+A non-leaf node has at least one child.
+
+The queue helps visit every node exactly once.
+
+Quick comparison for your lab exam
+Concept
+
+Question 1
+
+Question 2
+
+Data structure
+
+Doubly Linked List
+
+Binary Search Tree
+
+Main pointers
+
+prev, next
+
+left, right
+
+Main operation
+
+Traversal
+
+Insertion + traversal
+
+Result
+
+Maximum, minimum
+
+Leaf, non-leaf count
+
+Complexity
+
+O(n) for finding min/max
+
+O(n) for counting nodes
+
+My suggestion: Practise writing both programs once without looking at the code. Pay particular attention to linking nodes in Question 1 and finding the correct insertion position in Question 2.
+
+I can also prepare a lab-exam practice exercise for these two topics for tomorrow.
+
+
+
+Daily data structures practice
+
+Tap to set up
+
+Here I used find leaf node count using n by 2 and non-leaf node equal to n by 2, n minus n by 2, I think.
+Yes, I understand what you mean! You are trying to calculate the leaf and non-leaf nodes using the total number of nodes n.
+
+But we cannot generally use n/2 to count leaf nodes in a Binary Search Tree.
+
+The number of leaf nodes depends on the structure of the tree, not just the total number of nodes.
+
+Example 1
+Suppose n = 7.
+
+
+Total nodes = 7
+
+Leaf nodes = 4
+
+Non-leaf nodes = 3
+
+Here, n/2 = 7/2 = 3 (integer division), which is not the leaf count.
+
+Correct formula
+For any non-empty binary tree:
+
+Non-leaf nodes
+=
+n
+−
+Leaf nodes
+Non-leaf nodes=n−Leaf nodes
+But there is no general formula to calculate leaf nodes using only n.
+
+What to write in your program
+if (ptr->left == NULL && ptr->right == NULL)
+    leaf++;
+else
+    nonleaf++;
+
+One important question: Did your teacher specifically teach the formula leaf = n/2 and nonleaf = n - n/2 for a complete binary tree, or did they ask you to use it for a normal BST? This distinction matters.
+
+Is it only work for complete?
+Not exactly! The formula leaf = n/2 does not work for every complete binary tree either.
+
+It depends on the type of binary tree.
+
+Example
+Tree type
+
+Can we use leaf = n/2?
+
+Normal Binary Tree
+
+No
+
+Binary Search Tree
+
+No
+
+Complete Binary Tree
+
+Not always
+
+Perfect Binary Tree
+
+Yes, if using integer division
+
+For a perfect binary tree:
+
+L
+=
+n
++
+1
+2
+L= 
+2
+n+1
+​
+ 
+N
+L
+=
+n
+−
+1
+2
+NL= 
+2
+n−1
+​
+ 
+Where:
+
+L = Leaf nodes
+
+NL = Non-leaf nodes
+
+n = Total nodes
+
+For example, if n = 7:
+
+Leaf nodes = 4
+
+Non-leaf nodes = 3
+
+My recommendation: For your BST lab question, use the counting logic:
+
+if (ptr->left == NULL && ptr->right == NULL)
+    leaf++;
+else
+    nonleaf++;
+
+This works for every ordinary BST, regardless of its shape.
+
+I first created a structure of creating binary tree and insertion. Then I give a menu driven for...First, I create a structure, data structure, and create a BST and add insertion function. Then I call the insertion, and that my tree look like, my code look like. Then what are the modifications I do to insert this part snippet into that?
+Okay! You don't need to change your existing BST creation and insertion program. You only need to add the leaf-counting and non-leaf-counting logic to your existing menu-driven program.
+
+I'll show you exactly where to add it.
+
+1. Keep your existing structure
+Your structure will remain the same:
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+2. Add two counting functions
+After your insertion function, add these two functions:
+
+Function to count leaf nodes:
+
+int leafcount(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 1;
+
+    return leafcount(root->left) +
+           leafcount(root->right);
+}
+
+Function to count non-leaf nodes:
+
+int nonleafcount(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 0;
+
+    return 1 + nonleafcount(root->left) +
+               nonleafcount(root->right);
+}
+
+3. Add options to your existing menu
+Suppose your menu looks like this:
+
+printf("\n1. Insert");
+printf("\n2. Display");
+printf("\n3. Exit");
+
+Modify it to:
+
+printf("\n1. Insert");
+printf("\n2. Display");
+printf("\n3. Count Leaf Nodes");
+printf("\n4. Count Non-Leaf Nodes");
+printf("\n5. Exit");
+
+4. Add these cases in your switch statement
+case 3:
+    printf("Leaf nodes = %d", leafcount(root));
+    break;
+
+case 4:
+    printf("Non-leaf nodes = %d", nonleafcount(root));
+    break;
+
+Keep your existing insertion and display cases unchanged. Update the exit case to option 5.
+
+5. How your final program structure should look
+Structure declaration
+
+BST insertion function
+
+Leaf count function + Non-leaf count function
+
+Main function – Menu-driven program
+
+Menu options
+
+Insert node
+
+Display BST
+
+Count leaf nodes
+
+Count non-leaf nodes
+
+Exit
+
+One thing I need from you
+Send me your existing BST code (especially your insertion function and menu-driven main() function).
+
+I'll modify your exact code by inserting only the necessary counting logic, without changing your coding style, function names, or existing structure.
+
+Full code with along with pseudocode algorithm for this.
+Experiment: Binary Search Tree – Count Leaf and Non-Leaf Nodes
+Below is the complete menu-driven C program with BST creation, insertion, display, leaf node counting and non-leaf node counting, followed by the algorithm and pseudocode.
+
+The program uses separate functions, so you can add the counting functions to your existing BST program without changing its basic structure.
+
+1. Algorithm
+Start.
+
+Declare a structure node containing:
+
+Integer variable data.
+
+Pointer left to the left child.
+
+Pointer right to the right child.
+
+Initialize root = NULL.
+
+Create an insertion function to insert elements into the Binary Search Tree.
+
+Create a function to count leaf nodes:
+
+If root == NULL, return 0.
+
+If both left and right children are NULL, return 1.
+
+Otherwise, recursively count the leaf nodes in the left and right subtrees and return their sum.
+
+Create a function to count non-leaf nodes:
+
+If root == NULL, return 0.
+
+If both left and right children are NULL, return 0.
+
+Otherwise, recursively count the non-leaf nodes in the left and right subtrees and add 1 for the current node.
+
+Display the menu:
+
+Insert node.
+
+Display BST.
+
+Count leaf nodes.
+
+Count non-leaf nodes.
+
+Exit.
+
+Read the user's choice.
+
+Perform the corresponding operation using the switch statement.
+
+Repeat the menu until the user selects Exit.
+
+Stop.
+
+2. Pseudocode
+Pseudocode for insertion
+INSERT(root, value)
+
+1. If root is NULL
+      Create a new node
+      Store value in the node
+      Set left and right to NULL
+      Return new node
+
+2. If value < root->data
+      root->left = INSERT(root->left, value)
+
+3. Else if value > root->data
+      root->right = INSERT(root->right, value)
+
+4. Return root
+Pseudocode for counting leaf nodes
+LEAFCOUNT(root)
+
+1. If root is NULL
+      Return 0
+
+2. If root->left is NULL AND root->right is NULL
+      Return 1
+
+3. leftcount = LEAFCOUNT(root->left)
+4. rightcount = LEAFCOUNT(root->right)
+
+5. Return leftcount + rightcount
+Pseudocode for counting non-leaf nodes
+NONLEAFCOUNT(root)
+
+1. If root is NULL
+      Return 0
+
+2. If root->left is NULL AND root->right is NULL
+      Return 0
+
+3. leftcount = NONLEAFCOUNT(root->left)
+4. rightcount = NONLEAFCOUNT(root->right)
+
+5. Return 1 + leftcount + rightcount
+3. Complete C Program
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+// Function to insert a node
+struct node* insert(struct node *root, int value)
+{
+    if (root == NULL)
+    {
+        struct node *newnode;
+        newnode = (struct node*)malloc(sizeof(struct node));
+
+        newnode->data = value;
+        newnode->left = NULL;
+        newnode->right = NULL;
+
+        return newnode;
+    }
+
+    if (value < root->data)
+    {
+        root->left = insert(root->left, value);
+    }
+    else if (value > root->data)
+    {
+        root->right = insert(root->right, value);
+    }
+    else
+    {
+        printf("Duplicate value not allowed\n");
+    }
+
+    return root;
+}
+
+// Function to display BST
+void inorder(struct node *root)
+{
+    if (root != NULL)
+    {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+// Function to count leaf nodes
+int leafcount(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 1;
+
+    return leafcount(root->left) +
+           leafcount(root->right);
+}
+
+// Function to count non-leaf nodes
+int nonleafcount(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 0;
+
+    return 1 + nonleafcount(root->left) +
+               nonleafcount(root->right);
+}
+
+// Main function
+int main()
+{
+    struct node *root = NULL;
+
+    int choice, value;
+
+    do
+    {
+        printf("\n\n----- BINARY SEARCH TREE -----");
+        printf("\n1. Insert");
+        printf("\n2. Display");
+        printf("\n3. Count Leaf Nodes");
+        printf("\n4. Count Non-Leaf Nodes");
+        printf("\n5. Exit");
+
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+                printf("Enter the value: ");
+                scanf("%d", &value);
+
+                root = insert(root, value);
+                break;
+
+            case 2:
+                printf("BST Elements: ");
+                inorder(root);
+                break;
+
+            case 3:
+                printf("Number of Leaf Nodes = %d",
+                       leafcount(root));
+                break;
+
+            case 4:
+                printf("Number of Non-Leaf Nodes = %d",
+                       nonleafcount(root));
+                break;
+
+            case 5:
+                printf("Exiting...");
+                break;
+
+            default:
+                printf("Invalid choice");
+        }
+
+    } while(choice != 5);
+
+    return 0;
+}
+
+4. Sample Output
+Program execution
+
+----- BINARY SEARCH TREE -----
+1. Insert
+2. Display
+3. Count Leaf Nodes
+4. Count Non-Leaf Nodes
+5. Exit
+
+Enter your choice: 1
+Enter the value: 50
+
+Enter your choice: 1
+Enter the value: 30
+
+Enter your choice: 1
+Enter the value: 70
+
+Enter your choice: 1
+Enter the value: 20
+
+Enter your choice: 1
+Enter the value: 40
+
+Enter your choice: 1
+Enter the value: 60
+
+Enter your choice: 1
+Enter the value: 80
+
+Enter your choice: 2
+BST Elements: 20 30 40 50 60 70 80
+
+Enter your choice: 3
+Number of Leaf Nodes = 4
+
+Enter your choice: 4
+Number of Non-Leaf Nodes = 3
+
+Enter your choice: 5
+Exiting...
+5. Tree representation
+Balanced Binary Search Trees. Binary search trees allow binary search… | by Kalpani Ekanayake | Dec, 2025 | Medium
+
+For the above example:
+
+Node category
+
+Nodes
+
+Count
+
+Leaf nodes
+
+20, 40, 60, 80
+
+4
+
+Non-leaf nodes
+
+50, 30, 70
+
+3
+
+Total nodes
+
+All nodes
+
+7
+
+Remember:
+
+Total nodes
+=
+Leaf nodes
++
+Non-leaf nodes
+Total nodes=Leaf nodes+Non-leaf nodes
+7
+=
+4
++
+3
+7=4+3
+6. Important points for your lab exam
+insert() – Inserts elements into the BST.
+
+inorder() – Displays elements in ascending order.
+
+leafcount() – Counts nodes having no children.
+
+nonleafcount() – Counts nodes having at least one child.
+
+root – Points to the root node of the tree.
+
+Most importantly: You do not need to use n/2 for counting. The two recursive functions work for any shape of Binary Search Tree.
+
+
+
+
+
+Failed
+Failed
+Failed
+Give me the algorithm and code for these two question.
+Reference the note book for algorithm and format
+Data Structures Lab – Set 5
+I identified the two questions from your lab sheet:
+
+Doubly Linked List: Write a C program to create a doubly linked list containing integer elements and identify the maximum and minimum values.
+
+Binary Search Tree: Write a C program to construct a Binary Search Tree (BST), count the number of leaf nodes and non-leaf nodes, and display both counts.
+
+I'll follow the same format as your notebook: numbered algorithm steps, structure declaration, main() function, and simple pointer-based logic. I'll avoid unnecessary separate functions so the programs are easier to write in your lab exam.
+
+Question 1 – Doubly Linked List (Maximum and Minimum)
+Algorithm
+Start.
+
+Declare a structure Node containing:
+
+Integer variable data.
+
+Pointer prev to the previous node.
+
+Pointer next to the next node.
+
+Declare head and ptr pointers and initialize head = NULL.
+
+Read the number of nodes n.
+
+Repeat the following steps n times:
+
+Allocate memory for a new node.
+
+Read the integer value into the new node.
+
+Assign NULL to its next pointer.
+
+If head == NULL:
+
+Assign the new node to head.
+
+Set its prev pointer to NULL.
+
+Otherwise:
+
+Traverse to the last node.
+
+Link the last node's next to the new node.
+
+Set the new node's prev to the last node.
+
+Initialize max and min with the first node's data.
+
+Set ptr = head.
+
+Traverse the linked list until ptr == NULL:
+
+If ptr->data > max, update max.
+
+If ptr->data < min, update min.
+
+Move ptr to the next node.
+
+Display the maximum and minimum values.
+
+Stop.
+
+C Program
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+
+int main() {
+    struct Node *head = NULL;
+    struct Node *ptr, *newnode;
+
+    int n, i, max, min, val;
+
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+        newnode = (struct Node*)malloc(sizeof(struct Node));
+
+        printf("Enter value: ");
+        scanf("%d", &val);
+
+        newnode->data = val;
+        newnode->next = NULL;
+
+        if (head == NULL) {
+            newnode->prev = NULL;
+            head = newnode;
+        }
+        else {
+            ptr = head;
+
+            while (ptr->next != NULL) {
+                ptr = ptr->next;
+            }
+
+            ptr->next = newnode;
+            newnode->prev = ptr;
+        }
+    }
+
+    ptr = head;
+
+    max = ptr->data;
+    min = ptr->data;
+
+    while (ptr != NULL) {
+
+        if (ptr->data > max) {
+            max = ptr->data;
+        }
+
+        if (ptr->data < min) {
+            min = ptr->data;
+        }
+
+        ptr = ptr->next;
+    }
+
+    printf("\nMaximum value = %d", max);
+    printf("\nMinimum value = %d", min);
+
+    return 0;
+}
+
+Example Output
+Enter the number of nodes: 5
+Enter value: 20
+Enter value: 10
+Enter value: 50
+Enter value: 5
+Enter value: 30
+
+Maximum value = 50
+Minimum value = 5
+Important logic to remember:
+
+prev points to the previous node.
+
+next points to the next node.
+
+ptr = ptr->next moves forward through the list.
+
+Initialize max and min with the first node instead of zero, because the list may contain negative numbers.
+
+Question 2 – Binary Search Tree (Count Leaf and Non-Leaf Nodes)
+Algorithm
+Start.
+
+Declare a structure Node containing:
+
+Integer variable data.
+
+Pointer left to the left child.
+
+Pointer right to the right child.
+
+Initialize root = NULL.
+
+Read the number of nodes n.
+
+Repeat the following steps n times:
+
+Allocate memory for a new node.
+
+Read the integer value.
+
+Assign NULL to its left and right pointers.
+
+If root == NULL, assign the new node to root.
+
+Otherwise:
+
+Set ptr = root.
+
+Compare the new value with ptr->data.
+
+If the value is smaller, move to the left child.
+
+If the value is greater, move to the right child.
+
+Continue until an empty position is found.
+
+Insert the new node at that position.
+
+Initialize leaf = 0 and nonleaf = 0.
+
+Insert the root node into a queue.
+
+Repeat while the queue is not empty:
+
+Remove a node from the queue.
+
+If both left and right children are NULL, increment leaf.
+
+Otherwise, increment nonleaf.
+
+If the left child exists, insert it into the queue.
+
+If the right child exists, insert it into the queue.
+
+Display the number of leaf nodes and non-leaf nodes.
+
+Stop.
+
+C Program
+This program uses a queue to traverse the BST level by level. It does not require separate insertion or counting functions.
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *left;
+    struct Node *right;
+};
+
+int main() {
+    struct Node *root = NULL;
+    struct Node *ptr, *newnode;
+
+    struct Node *queue[100];
+
+    int n, i, val;
+    int front = 0, rear = 0;
+    int leaf = 0, nonleaf = 0;
+
+    printf("Enter the number of nodes: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++) {
+
+        newnode = (struct Node*)malloc(sizeof(struct Node));
+
+        printf("Enter value: ");
+        scanf("%d", &val);
+
+        newnode->data = val;
+        newnode->left = NULL;
+        newnode->right = NULL;
+
+        if (root == NULL) {
+            root = newnode;
+        }
+        else {
+            ptr = root;
+
+            while (1) {
+
+                if (val < ptr->data) {
+
+                    if (ptr->left == NULL) {
+                        ptr->left = newnode;
+                        break;
+                    }
+                    else {
+                        ptr = ptr->left;
+                    }
+                }
+
+                else if (val > ptr->data) {
+
+                    if (ptr->right == NULL) {
+                        ptr->right = newnode;
+                        break;
+                    }
+                    else {
+                        ptr = ptr->right;
+                    }
+                }
+
+                else {
+                    printf("Duplicate value ignored.\n");
+                    free(newnode);
+                    break;
+                }
+            }
+        }
+    }
+
+    if (root != NULL) {
+
+        queue[rear++] = root;
+
+        while (front < rear) {
+
+            ptr = queue[front++];
+
+            if (ptr->left == NULL &&
+                ptr->right == NULL) {
+
+                leaf++;
+            }
+            else {
+                nonleaf++;
+            }
+
+            if (ptr->left != NULL) {
+                queue[rear++] = ptr->left;
+            }
+
+            if (ptr->right != NULL) {
+                queue[rear++] = ptr->right;
+            }
+        }
+    }
+
+    printf("\nNumber of leaf nodes = %d", leaf);
+    printf("\nNumber of non-leaf nodes = %d", nonleaf);
+
+    return 0;
+}
+
+Example Output
+Enter the number of nodes: 7
+Enter value: 50
+Enter value: 30
+Enter value: 70
+Enter value: 20
+Enter value: 40
+Enter value: 60
+Enter value: 80
+
+Number of leaf nodes = 4
+Number of non-leaf nodes = 3
+Understanding the BST
+The above input creates this tree:
+
+Binary Search Tree
+
+Leaf nodes: 20, 40, 60, 80
+
+Leaf nodes = 4
+
+Non-leaf nodes: 50, 30, 70 = 3
+
+Important logic to remember:
+
+left stores values smaller than the parent.
+
+right stores values greater than the parent.
+
+A leaf node has no children (left == NULL && right == NULL).
+
+A non-leaf node has at least one child.
+
+The queue helps visit every node exactly once.
+
+Quick comparison for your lab exam
+Concept
+
+Question 1
+
+Question 2
+
+Data structure
+
+Doubly Linked List
+
+Binary Search Tree
+
+Main pointers
+
+prev, next
+
+left, right
+
+Main operation
+
+Traversal
+
+Insertion + traversal
+
+Result
+
+Maximum, minimum
+
+Leaf, non-leaf count
+
+Complexity
+
+O(n) for finding min/max
+
+O(n) for counting nodes
+
+My suggestion: Practise writing both programs once without looking at the code. Pay particular attention to linking nodes in Question 1 and finding the correct insertion position in Question 2.
+
+I can also prepare a lab-exam practice exercise for these two topics for tomorrow.
+
+
+
+Daily data structures practice
+
+Tap to set up
+
+Here I used find leaf node count using n by 2 and non-leaf node equal to n by 2, n minus n by 2, I think.
+Yes, I understand what you mean! You are trying to calculate the leaf and non-leaf nodes using the total number of nodes n.
+
+But we cannot generally use n/2 to count leaf nodes in a Binary Search Tree.
+
+The number of leaf nodes depends on the structure of the tree, not just the total number of nodes.
+
+Example 1
+Suppose n = 7.
+
+
+Total nodes = 7
+
+Leaf nodes = 4
+
+Non-leaf nodes = 3
+
+Here, n/2 = 7/2 = 3 (integer division), which is not the leaf count.
+
+Correct formula
+For any non-empty binary tree:
+
+Non-leaf nodes
+=
+n
+−
+Leaf nodes
+Non-leaf nodes=n−Leaf nodes
+But there is no general formula to calculate leaf nodes using only n.
+
+What to write in your program
+if (ptr->left == NULL && ptr->right == NULL)
+    leaf++;
+else
+    nonleaf++;
+
+One important question: Did your teacher specifically teach the formula leaf = n/2 and nonleaf = n - n/2 for a complete binary tree, or did they ask you to use it for a normal BST? This distinction matters.
+
+Is it only work for complete?
+Not exactly! The formula leaf = n/2 does not work for every complete binary tree either.
+
+It depends on the type of binary tree.
+
+Example
+Tree type
+
+Can we use leaf = n/2?
+
+Normal Binary Tree
+
+No
+
+Binary Search Tree
+
+No
+
+Complete Binary Tree
+
+Not always
+
+Perfect Binary Tree
+
+Yes, if using integer division
+
+For a perfect binary tree:
+
+L
+=
+n
++
+1
+2
+L= 
+2
+n+1
+​
+ 
+N
+L
+=
+n
+−
+1
+2
+NL= 
+2
+n−1
+​
+ 
+Where:
+
+L = Leaf nodes
+
+NL = Non-leaf nodes
+
+n = Total nodes
+
+For example, if n = 7:
+
+Leaf nodes = 4
+
+Non-leaf nodes = 3
+
+My recommendation: For your BST lab question, use the counting logic:
+
+if (ptr->left == NULL && ptr->right == NULL)
+    leaf++;
+else
+    nonleaf++;
+
+This works for every ordinary BST, regardless of its shape.
+
+I first created a structure of creating binary tree and insertion. Then I give a menu driven for...First, I create a structure, data structure, and create a BST and add insertion function. Then I call the insertion, and that my tree look like, my code look like. Then what are the modifications I do to insert this part snippet into that?
+Okay! You don't need to change your existing BST creation and insertion program. You only need to add the leaf-counting and non-leaf-counting logic to your existing menu-driven program.
+
+I'll show you exactly where to add it.
+
+1. Keep your existing structure
+Your structure will remain the same:
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+2. Add two counting functions
+After your insertion function, add these two functions:
+
+Function to count leaf nodes:
+
+int leafcount(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 1;
+
+    return leafcount(root->left) +
+           leafcount(root->right);
+}
+
+Function to count non-leaf nodes:
+
+int nonleafcount(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 0;
+
+    return 1 + nonleafcount(root->left) +
+               nonleafcount(root->right);
+}
+
+3. Add options to your existing menu
+Suppose your menu looks like this:
+
+printf("\n1. Insert");
+printf("\n2. Display");
+printf("\n3. Exit");
+
+Modify it to:
+
+printf("\n1. Insert");
+printf("\n2. Display");
+printf("\n3. Count Leaf Nodes");
+printf("\n4. Count Non-Leaf Nodes");
+printf("\n5. Exit");
+
+4. Add these cases in your switch statement
+case 3:
+    printf("Leaf nodes = %d", leafcount(root));
+    break;
+
+case 4:
+    printf("Non-leaf nodes = %d", nonleafcount(root));
+    break;
+
+Keep your existing insertion and display cases unchanged. Update the exit case to option 5.
+
+5. How your final program structure should look
+Structure declaration
+
+BST insertion function
+
+Leaf count function + Non-leaf count function
+
+Main function – Menu-driven program
+
+Menu options
+
+Insert node
+
+Display BST
+
+Count leaf nodes
+
+Count non-leaf nodes
+
+Exit
+
+One thing I need from you
+Send me your existing BST code (especially your insertion function and menu-driven main() function).
+
+I'll modify your exact code by inserting only the necessary counting logic, without changing your coding style, function names, or existing structure.
+
+Full code with along with pseudocode algorithm for this.
+Experiment: Binary Search Tree – Count Leaf and Non-Leaf Nodes
+Below is the complete menu-driven C program with BST creation, insertion, display, leaf node counting and non-leaf node counting, followed by the algorithm and pseudocode.
+
+The program uses separate functions, so you can add the counting functions to your existing BST program without changing its basic structure.
+
+1. Algorithm
+Start.
+
+Declare a structure node containing:
+
+Integer variable data.
+
+Pointer left to the left child.
+
+Pointer right to the right child.
+
+Initialize root = NULL.
+
+Create an insertion function to insert elements into the Binary Search Tree.
+
+Create a function to count leaf nodes:
+
+If root == NULL, return 0.
+
+If both left and right children are NULL, return 1.
+
+Otherwise, recursively count the leaf nodes in the left and right subtrees and return their sum.
+
+Create a function to count non-leaf nodes:
+
+If root == NULL, return 0.
+
+If both left and right children are NULL, return 0.
+
+Otherwise, recursively count the non-leaf nodes in the left and right subtrees and add 1 for the current node.
+
+Display the menu:
+
+Insert node.
+
+Display BST.
+
+Count leaf nodes.
+
+Count non-leaf nodes.
+
+Exit.
+
+Read the user's choice.
+
+Perform the corresponding operation using the switch statement.
+
+Repeat the menu until the user selects Exit.
+
+Stop.
+
+2. Pseudocode
+Pseudocode for insertion
+INSERT(root, value)
+
+1. If root is NULL
+      Create a new node
+      Store value in the node
+      Set left and right to NULL
+      Return new node
+
+2. If value < root->data
+      root->left = INSERT(root->left, value)
+
+3. Else if value > root->data
+      root->right = INSERT(root->right, value)
+
+4. Return root
+Pseudocode for counting leaf nodes
+LEAFCOUNT(root)
+
+1. If root is NULL
+      Return 0
+
+2. If root->left is NULL AND root->right is NULL
+      Return 1
+
+3. leftcount = LEAFCOUNT(root->left)
+4. rightcount = LEAFCOUNT(root->right)
+
+5. Return leftcount + rightcount
+Pseudocode for counting non-leaf nodes
+NONLEAFCOUNT(root)
+
+1. If root is NULL
+      Return 0
+
+2. If root->left is NULL AND root->right is NULL
+      Return 0
+
+3. leftcount = NONLEAFCOUNT(root->left)
+4. rightcount = NONLEAFCOUNT(root->right)
+
+5. Return 1 + leftcount + rightcount
+3. Complete C Program
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+// Function to insert a node
+struct node* insert(struct node *root, int value)
+{
+    if (root == NULL)
+    {
+        struct node *newnode;
+        newnode = (struct node*)malloc(sizeof(struct node));
+
+        newnode->data = value;
+        newnode->left = NULL;
+        newnode->right = NULL;
+
+        return newnode;
+    }
+
+    if (value < root->data)
+    {
+        root->left = insert(root->left, value);
+    }
+    else if (value > root->data)
+    {
+        root->right = insert(root->right, value);
+    }
+    else
+    {
+        printf("Duplicate value not allowed\n");
+    }
+
+    return root;
+}
+
+// Function to display BST
+void inorder(struct node *root)
+{
+    if (root != NULL)
+    {
+        inorder(root->left);
+        printf("%d ", root->data);
+        inorder(root->right);
+    }
+}
+
+// Function to count leaf nodes
+int leafcount(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 1;
+
+    return leafcount(root->left) +
+           leafcount(root->right);
+}
+
+// Function to count non-leaf nodes
+int nonleafcount(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 0;
+
+    return 1 + nonleafcount(root->left) +
+               nonleafcount(root->right);
+}
+
+// Main function
+int main()
+{
+    struct node *root = NULL;
+
+    int choice, value;
+
+    do
+    {
+        printf("\n\n----- BINARY SEARCH TREE -----");
+        printf("\n1. Insert");
+        printf("\n2. Display");
+        printf("\n3. Count Leaf Nodes");
+        printf("\n4. Count Non-Leaf Nodes");
+        printf("\n5. Exit");
+
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice)
+        {
+            case 1:
+                printf("Enter the value: ");
+                scanf("%d", &value);
+
+                root = insert(root, value);
+                break;
+
+            case 2:
+                printf("BST Elements: ");
+                inorder(root);
+                break;
+
+            case 3:
+                printf("Number of Leaf Nodes = %d",
+                       leafcount(root));
+                break;
+
+            case 4:
+                printf("Number of Non-Leaf Nodes = %d",
+                       nonleafcount(root));
+                break;
+
+            case 5:
+                printf("Exiting...");
+                break;
+
+            default:
+                printf("Invalid choice");
+        }
+
+    } while(choice != 5);
+
+    return 0;
+}
+
+4. Sample Output
+Program execution
+
+----- BINARY SEARCH TREE -----
+1. Insert
+2. Display
+3. Count Leaf Nodes
+4. Count Non-Leaf Nodes
+5. Exit
+
+Enter your choice: 1
+Enter the value: 50
+
+Enter your choice: 1
+Enter the value: 30
+
+Enter your choice: 1
+Enter the value: 70
+
+Enter your choice: 1
+Enter the value: 20
+
+Enter your choice: 1
+Enter the value: 40
+
+Enter your choice: 1
+Enter the value: 60
+
+Enter your choice: 1
+Enter the value: 80
+
+Enter your choice: 2
+BST Elements: 20 30 40 50 60 70 80
+
+Enter your choice: 3
+Number of Leaf Nodes = 4
+
+Enter your choice: 4
+Number of Non-Leaf Nodes = 3
+
+Enter your choice: 5
+Exiting...
+5. Tree representation
+Balanced Binary Search Trees. Binary search trees allow binary search… | by Kalpani Ekanayake | Dec, 2025 | Medium
+
+For the above example:
+
+Node category
+
+Nodes
+
+Count
+
+Leaf nodes
+
+20, 40, 60, 80
+
+4
+
+Non-leaf nodes
+
+50, 30, 70
+
+3
+
+Total nodes
+
+All nodes
+
+7
+
+Remember:
+
+Total nodes
+=
+Leaf nodes
++
+Non-leaf nodes
+Total nodes=Leaf nodes+Non-leaf nodes
+7
+=
+4
++
+3
+7=4+3
+6. Important points for your lab exam
+insert() – Inserts elements into the BST.
+
+inorder() – Displays elements in ascending order.
+
+leafcount() – Counts nodes having no children.
+
+nonleafcount() – Counts nodes having at least one child.
+
+root – Points to the root node of the tree.
+
+Most importantly: You do not need to use n/2 for counting. The two recursive functions work for any shape of Binary Search Tree.
+
+
+
+
+
+
+
+

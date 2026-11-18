@@ -1,0 +1,165 @@
+AFRA MARIYA V P <26mca34@mgits.ac.in>
+	
+9:01 AM (21 minutes ago)
+	
+	
+to me
+[21/10, 10:51 pm] Aframariya: BEGIN
+
+    DECLARE queue[MAX], front, rear, choice, item, i
+
+    front ← -1
+    rear ← -1
+
+    REPEAT
+        PRINT "1. ENQUEUE"
+        PRINT "2. DEQUEUE"
+        PRINT "3. DISPLAY"
+        PRINT "4. EXIT"
+
+        READ choice
+
+        SWITCH choice
+
+            CASE 1:
+                IF rear = MAX - 1 THEN
+                    PRINT "Queue Overflow"
+                ELSE
+                    READ item
+
+                    IF front = -1 THEN
+                        front ← 0
+                    ENDIF
+
+                    rear ← rear + 1
+                    queue[rear] ← item
+                ENDIF
+                BREAK
+
+            CASE 2:
+                IF front = -1 THEN
+                    PRINT "Queue Underflow"
+                ELSE
+                    PRINT "Deleted item =", queue[front]
+
+                    IF front = rear THEN
+                        front ← -1
+                        rear ← -1
+                    ELSE
+                        front ← front + 1
+                    ENDIF
+                ENDIF
+                BREAK
+
+            CASE 3:
+                IF front = -1 THEN
+                    PRINT "Queue is Empty"
+                ELSE
+                    FOR i ← front TO rear DO
+                        PRINT queue[i]
+                    ENDFOR
+                ENDIF
+                BREAK
+
+            CASE 4:
+                PRINT "Exiting"
+                BREAK
+
+            DEFAULT:
+                PRINT "Invalid Choice"
+
+        ENDSWITCH
+
+    UNTIL choice = 4
+
+END
+[21/10, 10:53 pm] Aframariya: #include <stdio.h>
+#define MAX 5
+
+int main()
+{
+    int queue[MAX];
+    int front = -1, rear = -1;
+    int choice, item, i;
+
+    do
+    {
+        printf("\n1. ENQUEUE");
+        printf("\n2. DEQUEUE");
+        printf("\n3. DISPLAY");
+        printf("\n4. EXIT");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                if (rear == MAX - 1)
+                {
+                    printf("Queue Overflow\n");
+                }
+                else
+                {
+                    printf("Enter the item: ");
+                    scanf("%d", &item);
+
+                    if (front == -1)
+                    {
+                        front = 0;
+                    }
+
+                    rear++;
+                    queue[rear] = item;
+                }
+                break;
+
+            case 2:
+                if (front == -1)
+                {
+                    printf("Queue Underflow\n");
+                }
+                else
+                {
+                    printf("Deleted item = %d\n", queue[front]);
+
+                    if (front == rear)
+                    {
+                        front = -1;
+                        rear = -1;
+                    }
+                    else
+                    {
+                        front++;
+                    }
+                }
+                break;
+
+            case 3:
+                if (front == -1)
+                {
+                    printf("Queue is Empty\n");
+                }
+                else
+                {
+                    printf("Queue elements: ");
+                    for (i = front; i <= rear; i++)
+                    {
+                        printf("%d ", queue[i]);
+                    }
+                    printf("\n");
+                }
+                break;
+
+            case 4:
+                printf("Exiting...\n");
+                break;
+
+            default:
+                printf("Invalid Choice\n");
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
+

@@ -1,0 +1,146 @@
+ #include <stdio.h>
+#define MAX 5
+
+int main()
+{
+    int queue[MAX];
+    int front = -1, rear = -1;
+    int choice, item, i;
+
+    do
+    {
+        printf("\n1. ENQUEUE");
+        printf("\n2. DEQUEUE");
+        printf("\n3. DISPLAY");
+        printf("\n4. EXIT");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                if ((rear + 1) % MAX == front)
+                {
+                    printf("Circular Queue Overflow\n");
+                }
+                else
+                {
+                    printf("Enter the item: ");
+                    scanf("%d", &item);
+
+                    if (front == -1)
+                    {
+                        front = 0;
+                        rear = 0;
+                    }
+                    else
+                    {
+                        rear = (rear + 1) % MAX;
+                    }
+
+                    queue[rear] = item;
+                }
+                break;
+
+            case 2:
+                if (front == -1)
+                {
+                    printf("Circular Queue Underflow\n");
+                }
+                else
+                {
+                    printf("Deleted item = %d\n", queue[front]);
+
+                    if (front == rear)
+                    {
+                        front = -1;
+                        rear = -1;
+                    }
+                    else
+                    {
+                        front = (front + 1) % MAX;
+                    }
+                }
+                break;
+
+            case 3:
+                if (front == -1)
+                {
+                    printf("Circular Queue is Empty\n");
+                }
+                else
+                {
+                    printf("Circular Queue elements: ");
+                    i = front;
+
+                    while (1)
+                    {
+                        printf("%d ", queue[i]);
+
+                        if (i == rear)
+                        {
+                            break;
+                        }
+
+                        i = (i + 1) % MAX;
+                    }
+
+                    printf("\n");
+                }
+                break;
+
+            case 4:
+                printf("Exiting...\n");
+                break;
+
+            default:
+                printf("Invalid Choice\n");
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
+[21/10, 10:53 pm] Aframariya: **Algorithm: Implementation of Circular Queue Using Array**
+
+**Step 1:** Start.
+
+**Step 2:** Declare an array `queue[MAX]` and integer variables `front`, `rear`, `choice`, `item` and `i`.
+
+**Step 3:** Initialize `front = -1` and `rear = -1`.
+
+**Step 4:** Display the menu:
+1. ENQUEUE
+2. DEQUEUE
+3. DISPLAY
+4. EXIT
+
+**Step 5:** Read the user's choice.
+
+**Step 6:** If the choice is ENQUEUE:
+- If `(rear + 1) % MAX == front`, display `Circular Queue Overflow`.
+- Otherwise, read the item.
+- If `front == -1`, set `front = 0` and `rear = 0`.
+- Otherwise, set `rear = (rear + 1) % MAX`.
+- Assign `queue[rear] = item`.
+
+**Step 7:** If the choice is DEQUEUE:
+- If `front == -1`, display `Circular Queue Underflow`.
+- Otherwise, display `queue[front]` as the deleted element.
+- If `front == rear`, set `front = -1` and `rear = -1`.
+- Otherwise, set `front = (front + 1) % MAX`.
+
+**Step 8:** If the choice is DISPLAY:
+- If `front == -1`, display `Circular Queue is Empty`.
+- Otherwise, initialize `i = front`.
+- Repeat the following:
+  1. Display `queue[i]`.
+  2. If `i == rear`, stop displaying.
+  3. Otherwise, set `i = (i + 1) % MAX`.
+
+**Step 9:** If the choice is EXIT, go to Step 11.
+
+**Step 10:** If the choice is invalid, display `Invalid Choice`. Return to Step 4.
+
+**Step 11:** Stop.
+

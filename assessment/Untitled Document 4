@@ -1,0 +1,137 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *left, *right;
+};
+
+
+struct Node* createNode(int value) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = value;
+    newNode->left = newNode->right = NULL;
+    return newNode;
+}
+
+// Function to insert a value into the BST
+struct Node* insert(struct Node* root, int value) {
+    if (root == NULL) {
+        return createNode(value);
+    }
+
+    if (value < root->data) {
+        root->left = insert(root->left, value);
+    } else if (value > root->data) {
+        root->right = insert(root->right, value);
+    }
+
+    return root;
+}
+
+// Function to count leaf nodes
+int countLeafNodes(struct Node* root) {
+    if (root == NULL) {
+        return 0;
+    }
+    if (root->left == NULL && root->right == NULL) {
+        return 1;
+    }
+    return countLeafNodes(root->left) + countLeafNodes(root->right);
+}
+
+// Function to count non-leaf (internal) nodes
+int countNonLeafNodes(struct Node* root) {
+    if (root == NULL || (root->left == NULL && root->right == NULL)) {
+        return 0;
+    }
+    return 1 + countNonLeafNodes(root->left) + countNonLeafNodes(root->right);
+}
+
+int main() {
+    struct Node* root = NULL;
+    int n, value;
+
+    printf("Enter the number of nodes to insert: ");
+    scanf("%d", &n);
+
+    printf("Enter %d integer values:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &value);
+        root = insert(root, value);
+    }
+
+    int leafCount = countLeafNodes(root);
+    int nonLeafCount = countNonLeafNodes(root);
+
+    printf("\nNumber of leaf nodes: %d\n", leafCount);
+    printf("Number of non-leaf nodes: %d\n", nonLeafCount);
+
+    return 0;
+}### Algorithm: Count Leaf and Non-Leaf Nodes in a Binary Search Tree (BST)
+
+#### **1. Algorithm `createNode(x)**`
+
+1. Allocate memory for a new node `n`.
+2. Set `n.data ← x`.
+3. Set `n.left ← NULL` and `n.right ← NULL`.
+4. Return `n`.
+
+---
+
+#### **2. Algorithm `insert(root, x)**`
+
+1. **If** `root == NULL`, **then**
+* Return `createNode(x)`.
+
+
+2. **If** `x < root.data`, **then**
+* `root.left ← insert(root.left, x)`
+
+
+3. **Else if** `x > root.data`, **then**
+* `root.right ← insert(root.right, x)`
+
+
+4. Return `root`.
+
+---
+
+#### **3. Algorithm `countLeafNodes(root)**`
+
+1. **If** `root == NULL`, **then**
+* Return `0`.
+
+
+2. **If** `root.left == NULL` **AND** `root.right == NULL`, **then**
+* Return `1`.
+
+
+3. Return `countLeafNodes(root.left) + countLeafNodes(root.right)`.
+
+---
+
+#### **4. Algorithm `countNonLeafNodes(root)**`
+
+1. **If** `root == NULL` **OR** (`root.left == NULL` **AND** `root.right == NULL`), **then**
+* Return `0`.
+
+
+2. Return `1 + countNonLeafNodes(root.left) + countNonLeafNodes(root.right)`.
+
+---
+
+#### **5. Algorithm `Main()**`
+
+1. **Start**
+2. Initialize `root ← NULL`.
+3. Read the number of elements `n`.
+4. **For** `i ← 0` to `n - 1` **do**
+* Read element `x`.
+* `root ← insert(root, x)`
+
+
+5. `leafCount ← countLeafNodes(root)`
+6. `nonLeafCount ← countNonLeafNodes(root)`
+7. Print `leafCount` and `nonLeafCount`.
+8. **Stop**

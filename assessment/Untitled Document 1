@@ -1,0 +1,88 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+    int data;
+    struct node *left;
+    struct node *right;
+};
+
+// CREATE NODE
+struct node* create(int value)
+{
+    struct node *newnode;
+
+    newnode = malloc(sizeof(struct node));
+
+    newnode->data = value;
+    newnode->left = NULL;
+    newnode->right = NULL;
+
+    return newnode;
+}
+
+// INSERT INTO BST
+struct node* insert(struct node *root, int value)
+{
+    if (root == NULL)
+        return create(value);
+
+    if (value < root->data)
+        root->left = insert(root->left, value);
+
+    else if (value > root->data)
+        root->right = insert(root->right, value);
+
+    return root;
+}
+
+// COUNT LEAF NODES
+int leaf(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 1;
+
+    return leaf(root->left) + leaf(root->right);
+}
+
+// COUNT NON-LEAF NODES
+int nonleaf(struct node *root)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->left == NULL && root->right == NULL)
+        return 0;
+
+    return 1 + nonleaf(root->left) + nonleaf(root->right);
+}
+
+// MAIN FUNCTION
+int main()
+{
+    struct node *root = NULL;
+    int n, i, value;
+
+    printf("Enter number of nodes: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++)
+    {
+        printf("Enter data: ");
+        scanf("%d", &value);
+
+        root = insert(root, value);
+    }
+
+    printf("\nNumber of leaf nodes = %d", leaf(root));
+
+    printf("\nNumber of non-leaf nodes = %d", nonleaf(root));
+
+    return 0;
+}
+

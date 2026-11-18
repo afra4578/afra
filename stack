@@ -1,0 +1,94 @@
+include <stdio.h>
+#define MAX 5
+
+int main()
+{
+    int stack[MAX];
+    int top = -1;
+    int choice, item, i;
+
+    do
+    {
+        printf("\n1. PUSH");
+        printf("\n2. POP");
+        printf("\n3. PEEK");
+        printf("\n4. DISPLAY");
+        printf("\n5. EXIT");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
+        {
+            case 1:
+                if (top == MAX - 1)
+                {
+                    printf("Stack Overflow\n");
+                }
+                else
+                {
+                    printf("Enter the item: ");
+                    scanf("%d", &item);
+                    top++;
+                    stack[top] = item;
+                }
+                break;
+
+            case 2:
+                if (top == -1)
+                {
+                    printf("Stack Underflow\n");
+                }
+                else
+                {
+                    printf("Deleted item = %d\n", stack[top]);
+                    top--;
+                }
+                break;
+
+            case 3:
+                if (top == -1)
+                {
+                    printf("Stack is Empty\n");
+                }
+                else
+                {
+                    printf("Top item = %d\n", stack[top]);
+                }
+                break;
+
+            case 4:
+                if (top == -1)
+                {
+                    printf("Stack is Empty\n");
+                }
+                else
+                {
+                  case 1:
+                if (top == MAX - 1)
+                {
+                    printf("Stack Overflow\n");
+                }
+                else
+                {
+                    printf("Enter the item: ");
+                    scanf("%d", &item);
+                    top++;
+                    stack[top] = item;
+                }
+                break;
+                }
+                break;
+
+            case 5:
+                printf("Exiting...\n");
+                break;
+
+            default:
+                printf("Invalid Choice\n");
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
+
